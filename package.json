@@ -1,0 +1,24 @@
+{
+  "name": "venu",
+  "version": "0.9.0",
+  "private": true,
+  "description": "Ein eigener voxelbasierter Sandbox Prototyp",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node tests/check.mjs && node tests/crafting.mjs && node tests/biomes.mjs && node tests/xyther.mjs && node tests/null.mjs && node tests/endgame.mjs && node tests/large_world.mjs && node tests/multiplayer.mjs && node tests/lan.mjs",
+    "check:ui": "node tests/ui.mjs",
+    "build": "node scripts/build.mjs",
+    "check:standalone": "node tests/standalone.mjs",
+    "art": "node scripts/art.mjs",
+    "check:art": "node tests/art.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "happy-dom": "20.9.4",
+    "@napi-rs/canvas": "0.1.100",
+    "esbuild": "0.28.2"
+  }
+}

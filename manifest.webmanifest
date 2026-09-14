@@ -1,0 +1,19 @@
+{
+  "name": "VENU",
+  "short_name": "VENU",
+  "description": "Deine eigene voxelbasierte Sandbox Welt",
+  "start_url": "./index.html?venu=0.5",
+  "scope": "./",
+  "display": "fullscreen",
+  "background_color": "#0c1518",
+  "theme_color": "#10191f",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "./assets/venu_icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

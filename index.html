@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10191f" />
+    <title>VENU</title>
+    <link rel="icon" href="./assets/venu_icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest?v=0.9" />
+    <link rel="stylesheet" href="./styles.css?v=0.9" />
+  </head>
+  <body>
+    <canvas id="gameCanvas" aria-label="VENU Spielwelt"></canvas>
+
+    <div id="menuBackground" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="cloud cloudOne"></div>
+      <div class="cloud cloudTwo"></div>
+      <div class="mountain mountainBack"></div>
+      <div class="mountain mountainFront"></div>
+      <div class="groundLayers"></div>
+    </div>
+
+    <main id="menuRoot">
+      <section id="mainScreen" class="screen isVisible" aria-labelledby="gameTitle">
+        <div class="brandWrap">
+          <p class="eyebrow">DEINE WELT. DEINE REGELN.</p>
+          <h1 id="gameTitle" class="logo" aria-label="Venu">VENU</h1>
+          <p class="version">ALPHA 0.9 · DAS GRAFIK UPDATE</p>
+        </div>
+        <div class="menuPanel mainActions">
+          <button class="menuButton primary" data-action="singleplayer">
+            <span class="buttonIcon cubeIcon"></span>
+            <span><strong>SINGLEPLAYER</strong><small>Deine gespeicherten Welten</small></span>
+          </button>
+          <button class="menuButton" data-action="multiplayer">
+            <span class="buttonIcon peopleIcon"></span>
+            <span><strong>MULTIPLAYER</strong><small>Bauen im WLAN · Gemeinsame Gegner und Dimensionen</small></span>
+          </button>
+          <button class="menuButton compact" data-action="settings">
+            <span class="buttonIcon gearIcon"></span>
+            <span><strong>EINSTELLUNGEN</strong><small>Steuerung und Grafik</small></span>
+          </button>
+        </div>
+        <p class="menuHint">2 × 2 INVENTAR · 3 × 3 WERKBANK · XYTHER · NEUE BIOME · GEMEINSAME GEGNER<br>Eine eigene Welt aus Blöcken</p>
+      </section>
+
+      <section id="singleplayerScreen" class="screen" aria-labelledby="singleTitle">
+        <div class="screenHeader">
+          <button class="iconButton" data-back="mainScreen" aria-label="Zurück">‹</button>
+          <div><p class="eyebrow">SPIELEN</p><h2 id="singleTitle">Deine Welten</h2></div>
+        </div>
+        <div class="contentPanel worldPanel">
+          <div id="worldList" class="worldList"></div>
+          <div id="emptyWorlds" class="emptyState">
+            <div class="emptyCube"></div>
+            <h3>Noch keine Welt</h3>
+            <p>Erstelle deine erste VENU Welt und beginne zu bauen.</p>
+          </div>
+          <button id="newWorldButton" class="menuButton primary centered">
+            <span class="plus">＋</span><span><strong>NEUE WELT</strong><small>Zufällige Landschaft erstellen</small></span>
+          </button>
+        </div>
+      </section>
+
+      <section id="createWorldScreen" class="screen" aria-labelledby="createTitle">
+        <div class="screenHeader">
+          <button class="iconButton" data-back="singleplayerScreen" aria-label="Zurück">‹</button>
+          <div><p class="eyebrow">NEUES ABENTEUER</p><h2 id="createTitle">Welt erstellen</h2></div>
+        </div>
+        <form id="createWorldForm" class="contentPanel formPanel">
+          <label>Weltname<input id="worldName" maxlength="28" value="Meine VENU Welt" autocomplete="off" /></label>
+          <label>Seed<input id="worldSeed" maxlength="32" placeholder="Leer lassen für Zufall" autocomplete="off" /></label>
+          <label>Weltgröße<select id="worldSize"><option value="50000" selected>50.000 × 50.000 · Riesige Welt</option><option value="1000">1000 × 1000 · Kompakte Welt</option></select></label>
+          <fieldset>
+            <legend>Spielmodus</legend>
+            <div class="modeChoice">
+              <label class="choiceCard selected"><input type="radio" name="gameMode" value="survival" checked /><strong>Survival</strong><small>Werkzeuge, Nahrung und Nachtgegner</small></label>
+              <label class="choiceCard"><input type="radio" name="gameMode" value="creative" /><strong>Kreativ</strong><small>Alle Items und Fliegen mit F</small></label>
+            </div>
+          </fieldset>
+          <button type="submit" class="menuButton primary centered"><span class="playTriangle">▶</span><span><strong>WELT ERSTELLEN</strong><small>Das Abenteuer beginnt</small></span></button>
+        </form>
+      </section>
+
+      <section id="multiplayerScreen" class="screen" aria-labelledby="multiTitle">
+        <div class="screenHeader">
+          <button class="iconButton" data-back="mainScreen" aria-label="Zurück">‹</button>
+          <div><p class="eyebrow">ZUSAMMEN SPIELEN</p><h2 id="multiTitle">Multiplayer</h2></div>
+        </div>
+        <div class="contentPanel multiplayerPanel">
+          <div id="serverStatus" class="serverStatus checking"><span></span><p><strong>Server wird geprüft</strong><small>Einen Moment bitte</small></p></div>
+          <label>Dein Spielername<input id="playerName" maxlength="16" value="VenuPlayer" autocomplete="off" /></label>
+          <div class="multiColumns">
+            <article>
+              <div class="multiIcon hostIcon"></div>
+              <h3>Neue Welt öffnen</h3>
+              <p>Erstelle einen Raum und teile den Code mit deinen Freunden.</p>
+              <button id="createRoomButton" class="menuButton primary centered"><span><strong>RAUM ERSTELLEN</strong><small>Code automatisch erzeugen</small></span></button>
+            </article>
+            <article>
+              <div class="multiIcon joinIcon"></div>
+              <h3>Raum beitreten</h3>
+              <label>Raumcode<input id="roomCode" maxlength="6" placeholder="ABCDE" autocomplete="off" /></label>
+              <button id="joinRoomButton" class="menuButton centered"><span><strong>BEITRETEN</strong><small>Mit vorhandenem Code</small></span></button>
+            </article>
+          </div>
+          <p class="multiNote">Gemeinsames Bauen, Gegner, Xyther und Null für bis zu acht Spieler. Der Server speichert Räume regelmäßig. Alle brauchen Version 0.9.</p>
+          <p id="multiplayerMessage" class="formMessage" role="status"></p>
+        </div>
+      </section>
+
+      <section id="settingsScreen" class="screen" aria-labelledby="settingsTitle">
+        <div class="screenHeader">
+          <button class="iconButton" data-back="mainScreen" aria-label="Zurück">‹</button>
+          <div><p class="eyebrow">ANPASSEN</p><h2 id="settingsTitle">Einstellungen</h2></div>
+        </div>
+        <div class="contentPanel formPanel settingsPanel">
+          <label>Sichtweite <output id="renderDistanceValue">48 Blöcke</output><input id="renderDistance" type="range" min="32" max="128" step="16" value="64" /></label>
+          <label>Mausempfindlichkeit <output id="sensitivityValue">50 Prozent</output><input id="sensitivity" type="range" min="20" max="100" value="50" /></label>
+          <label>Lautstärke <output id="volumeValue">60 Prozent</output><input id="volume" type="range" min="0" max="100" value="60" /></label>
+          <button id="saveSettingsButton" class="menuButton primary centered"><span><strong>SPEICHERN</strong><small>Einstellungen übernehmen</small></span></button>
+        </div>
+      </section>
+    </main>
+
+    <div id="loadingScreen" class="overlayScreen" hidden>
+      <div class="loadingLogo">V</div>
+      <h2 id="loadingTitle">Welt wird erschaffen</h2>
+      <div class="loadingBar"><span id="loadingProgress"></span></div>
+      <p id="loadingText">Landschaft wird geformt</p>
+    </div>
+
+    <div id="hud" hidden>
+      <div id="worldInfo" class="hudPill"></div><div id="waypointInfo" hidden></div><div id="bossHud" hidden><strong></strong><progress max="900" value="900"></progress><span></span></div>
+      <div id="nullCompass" hidden><svg viewBox="0 0 40 40" aria-label="Richtung zum Nullportal"><path d="m20 3 10 27-10-7-10 7z" fill="#dfc8ff"/></svg><span></span></div>
+      <div id="objective" class="objective"><span>ENTDECKUNG</span><strong>Finde den Höhleneingang</strong><small id="caveDistance">Entfernung wird berechnet</small></div>
+      <div id="crosshair"><i></i><i></i></div>
+      <div id="targetInfo"></div>
+      <div id="breakProgress"><span></span></div>
+      <div id="hand" class="hand"><div id="heldItem"></div><div class="sleeve"></div><div class="skin"></div></div>
+      <div id="controlsHint">WASD Laufen&nbsp;&nbsp; Leertaste Springen&nbsp;&nbsp; Linksklick Abbauen&nbsp;&nbsp; Rechtsklick Platzieren&nbsp;&nbsp; E Inventar · M Weltkarte · F Fliegen im Kreativmodus</div>
+      <div id="vitals"><label>LEBEN <span id="healthValue"></span><progress id="healthBar" max="20" value="20"></progress></label><label>NAHRUNG <span id="foodValue"></span><progress id="foodBar" max="20" value="20"></progress></label></div>
+      <div id="worldClock"></div><div id="biomeInfo"></div><div id="liquidTint" hidden></div><div id="selectedItem"></div><div id="damageFlash"></div>
+      <div id="hotbar" class="hotbar" aria-label="Schnellleiste"></div>
+      <div id="toast" class="toast"></div>
+      <button id="roomBadge" class="roomBadge" hidden></button>
+    </div>
+
+    <section id="victoryScreen" class="gamePanel" hidden><p>VENU</p><h1>Du hast Null besiegt.</h1><p id="victoryTime"></p><p>Der Nullarchon ist gefallen. Deine Welten und Bauten bleiben erhalten.</p><button id="continueVictory">In der Oberwelt weiterspielen</button></section>
+    <section id="inventoryScreen" class="gamePanel" hidden aria-labelledby="inventoryTitle">
+      <div class="panelTitle"><div><p class="eyebrow">RUCKSACK</p><h2 id="inventoryTitle">Inventar</h2></div><button class="closeButton" data-close-game-panel="inventory">×</button></div>
+      <div class="inventoryTop">
+        <div id="avatarPreview" class="avatarPreview" aria-label="Deine Spielfigur"><div class="avatarHead"></div><div class="avatarBody"></div><div class="avatarArm left"></div><div class="avatarArm right"></div><div class="avatarLeg left"></div><div class="avatarLeg right"></div><span>VENU</span></div>
+        <div class="craftArea"><h3 id="stationStatus">Crafting 2 × 2</h3><div class="craftRow"><div id="craftingGrid"></div><span class="craftArrow" aria-hidden="true">➜</span><button id="craftingResult" class="voxelSlot resultSlot" aria-label="Crafting Ergebnis"></button></div><p id="furnaceHelp" hidden>Oben Rohstoff, unten Brennstoff. Das Ergebnis wird sofort verarbeitet.</p><button id="craftNow" class="makeButton" disabled>Herstellen</button><p id="craftStatus" role="status"></p><div class="craftActions"><button id="recipeBookToggle" aria-expanded="false">Rezepte</button><button id="clearCrafting">Raster leeren</button></div></div>
+      </div>
+      <div class="storageLabel">Inventar <button id="inventoryPage" hidden>Weitere Gegenstände</button></div><div id="inventoryGrid" class="storageGrid"></div>
+      <div id="inventoryHotbar" class="storageGrid"></div>
+      <p id="inventoryHelp"></p><details id="portalGuide"><summary>Xytherportal bauen</summary><p>10 Diamantblöcke. Rahmen außen 4 breit und 5 hoch, ohne die vier Ecken. Innen 2 × 3 Felder frei lassen. Rechtsklick aktiviert den Rahmen, hineinspringen führt nach Xyther. Ein Diamantblock kostet 9 Diamanten an der Werkbank.</p></details>
+      <details><summary>Der Weg nach Null</summary><p>Jeder Xytherwächter lässt einen Xyshard fallen. Lege acht Xyshards an den Rand des 3 × 3 Rasters, Mitte frei: Nullkompass. Wähle ihn in der Schnellleiste. Er führt in der Oberwelt zur Nullruine. Rechtsklick mit dem Kompass auf deren Rahmen öffnet das Portal. In Null wartet ein Rückportal.</p></details>
+      <details><summary>Nullarchon und Spielabschluss</summary><p>In einer neuen Welt der Version 0.9 liegt Null unter der Erde. Folge dem Gang zur Krypta bei X 0, Y 39, Z minus 70. Weiche Warnkreisen aus und greife in der Erholungsphase an. Nach dem Bosskampf öffnet sich das Bodenportal: innen 3 × 3, außen 5 × 5, zwölf Rahmenblöcke ohne Ecken. Betreten beendet das Abenteuer. Das normale Rückportal zählt nicht als Sieg.</p></details>
+      <aside id="recipeBook" hidden><h3>Rezeptbuch</h3><p>Klicke ein Rezept, um vorhandene Zutaten ins Raster zu legen. Klicke danach auf Herstellen.</p><div id="recipeGrid"></div></aside>
+    </section>
+
+    <div id="cursorStack" hidden></div>
+    <section id="mapScreen" class="gamePanel" hidden><div class="panelTitle"><h2>Deine Welt</h2><button id="closeMap" class="closeButton">×</button></div><div class="mapTools"><label>Ausschnitt <select id="mapScale"><option value="512">512 Blöcke</option><option value="4096">4096 Blöcke</option><option value="50000">Ganze Welt</option></select></label><input id="markerName" maxlength="24" placeholder="Name der Markierung"><button id="clearMarkers">Markierungen löschen</button></div><p>Klicke auf die Karte, um ein Ziel zu markieren. Bis zu acht Ziele werden gespeichert.</p><canvas id="worldMap" width="500" height="500" aria-label="Weltkarte"></canvas><p id="mapHelp"></p><p>Blau: Meer · Gelb: Wüste · Grün: Wald · Grau: Gebirge<br>Weiß: Du · Orange: Lavasee · Violett: Höhleneingang<br>M schließt die Karte.</p></section>
+
+    <section id="pauseScreen" class="gamePanel pausePanel" hidden aria-labelledby="pauseTitle">
+      <p class="eyebrow">SPIEL PAUSIERT</p>
+      <h2 id="pauseTitle">Zurück in die Welt?</h2>
+      <button id="resumeButton" class="menuButton primary centered"><span><strong>WEITERSPIELEN</strong><small>Maus wieder fangen</small></span></button>
+      <button id="saveQuitButton" class="menuButton centered"><span><strong>SPEICHERN UND MENÜ</strong><small>Fortschritt sichern</small></span></button>
+      <div class="pauseControls"><span>WASD</span>Laufen <span>Leertaste</span>Springen <span>E</span>Inventar</div>
+    </section>
+
+    <div id="gameMessage" class="gameMessage" hidden>
+      <div class="mouseGlyph"></div>
+      <strong>Klicken zum Weiterspielen</strong>
+      <small>Mit der Maus siehst du dich um</small>
+    </div>
+
+    <script type="module">
+      // Retire only this game's old offline caches before loading the new release.
+      try {
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const registration of registrations) {
+            if (registration.active?.scriptURL === new URL('./service_worker.js', location.href).href) await registration.unregister();
+          }
+        }
+        if ('caches' in window) for (const key of await caches.keys()) if (key.startsWith('venu')) await caches.delete(key);
+      } catch (error) { console.warn('VENU Cache:', error); }
+      import('./src/main.js?v=0.9').catch(error => {
+        const message = document.createElement('p'); message.style.cssText='position:fixed;bottom:20px;left:20px;background:#321;color:white;padding:20px;z-index:100';
+        message.textContent='VENU konnte nicht starten: '+error.message; document.body.append(message);
+      });
+    </script>
+  </body>
+</html>

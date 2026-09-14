@@ -1,0 +1,30 @@
+NEU: Texturierte Inventarwuerfel, 32er Welttexturen und eigene Werkzeugbilder.
+Die Grafiken funktionieren auch in vorhandenen Welten.
+Grafikvorschau.png zeigt die neuen Symbole.
+
+VENU ALPHA 0.9
+
+FUER FREUNDE IM WLAN: Start_Venu.bat doppelt anklicken.
+Die Verbindungsseite zeigt die Adresse fuer deine Freunde.
+Nur der Server PC braucht Node.js. Freunde oeffnen die Adresse im Browser.
+Schritt fuer Schritt: WLAN_ANLEITUNG.txt.
+
+Neue Welten: 50.000 x 50.000. Karte mit Zoom und gespeicherten Markierungen.
+Neue Geraeusche fuer Material, Kampf, Crafting, Wasser und Portale.
+
+ZIP vollstaendig entpacken. Im Ordner Venu VENU_0_9.html oeffnen.
+Welten ab Version 0.8 enthalten bereits die aktuellen Hoehlen und die Nullkrypta.
+
+Weg zum Sieg:
+Werkzeuge und 90 Diamanten sammeln. Zehn Diamantbloecke zum Xytherportal bauen.
+Acht Xytherwaechter besiegen. Aus acht Xyshards den Nullkompass craften.
+In der Oberwelt der Nadel folgen und das Nullportal oeffnen.
+In Null unterirdisch zur Krypta gehen: X 0, Y 39, Z minus 70.
+Den Nullarchon besiegen. Warnkreisen ausweichen, in seiner Erholung angreifen.
+Danach das leuchtende Bodenportal betreten: innen 3 x 3, Rahmen ohne Ecken.
+
+E Inventar. Rechtsklick auf die Werkbank: grosses Crafting. M Weltkarte.
+Neue Heiltraenke im Rezeptbuch. Anleitung und Kampftipps: README.md.
+
+Etwa eine Stunde Survival ist das Entwicklungsziel, noch nicht manuell gemessen.
+Multiplayer: Start_Venu.bat, Node.js ab Version 20, Port 8088.

@@ -1,0 +1,64 @@
+VENU 0.9 MIT FREUNDEN IM WLAN
+
+AUF DEM PC, DER DEN SERVER STARTET
+
+1. Die gesamte ZIP entpacken. Nicht direkt in der ZIP starten.
+2. Start_Venu.bat doppelt anklicken.
+3. Wenn Node.js fehlt: Node.js LTS von https://nodejs.org installieren.
+   Danach die BAT Datei erneut starten. Nur der Server PC braucht Node.js.
+4. Im Browser erscheint die Seite Zusammen im WLAN spielen.
+5. Spiel oeffnen, Multiplayer waehlen, einen Raum erstellen.
+6. Das schwarze Serverfenster geoeffnet lassen.
+
+BEI DEINEN FREUNDEN
+
+1. Mit demselben Heimnetz verbinden. Ein Gastnetz kann die Verbindung sperren.
+2. Die angezeigte WLAN Adresse in Chrome oder Edge oeffnen.
+   Beispiel: http://192.168.178.30:8088
+   Die genaue Adresse steht auf der Verbindungsseite.
+   Nicht localhost verwenden. localhost zeigt auf den eigenen PC.
+3. Multiplayer waehlen, Namen eingeben und mit dem Raumcode beitreten.
+4. Freunde brauchen keine ZIP und kein Node.js. Maus und Tastatur benutzen.
+
+Im Spiel kannst du auf den Raumhinweis klicken, um einen Einladungslink zu
+kopieren. Beim Oeffnen des Links ist der Raumcode bereits eingetragen.
+Falls Kopieren nicht erlaubt ist, wird der Raumcode angezeigt. Teile dann
+Adresse und Raumcode einzeln.
+
+WENN DIE ADRESSE BEIM FREUND NICHT OEFFNET
+
+1. Funktioniert auf dem Server PC http://localhost:8088/wlan.html ?
+   Wenn nein: Fehlermeldung im schwarzen Fenster lesen.
+2. Beide Geraete muessen im selben Heimnetz sein. WLAN und LAN am selben
+   Router gehen normalerweise ebenfalls. Gastnetz und VPN koennen stoeren.
+3. Bei mehreren Adressen die zum Heimnetz passende Adresse ausprobieren.
+   Falls keine angezeigt wird: Windows Taste, cmd eingeben, Eingabeaufforderung
+   oeffnen, ipconfig eingeben. Die IPv4 Adresse des aktiven WLAN oder Ethernet
+   Adapters verwenden: http://DEINE-ADRESSE:8088
+4. Fuer dein eigenes Heimnetz in Windows das Netzwerkprofil Privat verwenden.
+   In den Windows Einstellungen unter Netzwerk und Internet die Eigenschaften
+   der aktiven Verbindung oeffnen und das Netzwerkprofil pruefen.
+5. Wenn Windows weiterhin blockiert: Rechtsklick auf WLAN_Freigeben.bat,
+   Als Administrator ausfuehren. Danach die Adresse beim Freund neu oeffnen.
+
+Die Freigabe erlaubt nur TCP Port 8088 aus dem lokalen Subnetz und gilt nur
+im privaten Netzwerkprofil. Die Firewall wird nicht ausgeschaltet.
+WLAN_Freigabe_entfernen.bat entfernt genau diese Regel wieder und braucht
+ebenfalls Administratorrechte. Im Router ist keine Portweiterleitung noetig.
+
+WENN DER PORT BELEGT IST
+
+Start_Venu.bat erkennt einen bereits laufenden VENU 0.9 Server und oeffnet
+seine Verbindungsseite. Bei einem anderen Programm oder einer alten Version:
+Deren Serverfenster schliessen und VENU erneut starten.
+
+BEENDEN UND SPEICHERN
+
+Im Serverfenster Strg und C druecken. Raeume und Bauten werden gespeichert.
+Nach einem Neustart koennt ihr denselben Raumcode erneut verwenden.
+Persoenliche Multiplayerinventare sind noch nicht dauerhaft gespeichert.
+Nach einem neuen Beitritt beginnt das Inventar wieder leer.
+
+Diese Version wurde mit zwei simulierten Teilnehmern am HTTP Server geprueft.
+Windows BAT, Windows Firewall und zwei echte WLAN PCs konnten hier nicht
+praktisch getestet werden.
